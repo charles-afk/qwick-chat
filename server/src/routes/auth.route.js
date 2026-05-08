@@ -1,0 +1,13 @@
+import express from "express";
+import { signup, login, logout, googleLogin, checkAuth, imageUpload, storeProfilePic, googleOAuth } from "../controllers/auth.controller.js";
+import { protectRoute } from "../middleware/auth.middleware.js";
+const router = express.Router();
+router.post("/signup", signup);
+router.post("/login", login);
+router.post("/logout", logout);
+router.get("/google-login", googleLogin);
+router.get("/googleOAuth", googleOAuth);
+router.get("/check", checkAuth);
+router.put('/image-upload', protectRoute, imageUpload);
+router.put('/store-profile', protectRoute, storeProfilePic);
+export default router;
