@@ -69,7 +69,7 @@ export const chatSlice = createSlice({
 			state.selectedUser = action.payload;
 		},
 		setMessages: (state, action) => {
-			state.messages = action.payload;
+			state.messages = [...state.messages, action.payload];
 		},
   },
   extraReducers: (builder) => {

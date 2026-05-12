@@ -54,9 +54,8 @@ export default function useInit() {
     newSocket.connect();
     socketRef.current = newSocket;
     newSocket.on("getOnlineUsers", (users: number[]) => {
-      console.log('socket:',users)
       const convertUsers = [];
-      for (const user in users) convertUsers.push(Number(user));
+      for (const user of users) convertUsers.push(Number(user));
       dispatch(setOnlineUsers(convertUsers));
     });
   };

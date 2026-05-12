@@ -17,17 +17,16 @@ export default function ChatContaimer({ socketRef }: ChatContainerProps) {
 
 	useEffect(() => {
 		if (selectedUser) dispatch(getMessages(authUser));
-		if (!selectedUser) return;
-		socketRef.current?.on("c", (newMessage) => {
-      const isMessageSentFromSelectedUser = newMessage.senderId == selectedUser.id;
-			console.log('newMessage',newMessage,selectedUser);
+		else return;
+		socketRef.current?.on("newMessage", (newMessage) => {
+      const isMessageSentFromSelectedUser = newMessage.sender_id == selectedUser.id;
       if (!isMessageSentFromSelectedUser) return;
-			dispatch(setMessages([...messages, newMessage]));
+			dispatch(setMessages(newMessage));
     });
 		return () => {
 			socketRef.current?.off("newMessage");
 		};
-	}, [selectedUser?.id, getMessages]);
+	}, [selectedUser?.id]);
 
 	useEffect(() => {
     if (messageEndRef.current && messages) 
@@ -80,7 +79,7 @@ export default function ChatContaimer({ socketRef }: ChatContainerProps) {
 					</div>
 					<div className='chat-container-bubble'>
 						{message?.image && <img className='chat-container-bubble-img' src={message?.image} />}
-						{message?.text ?? <p>{message?.text}</p>}
+						{message?.text && <p>{message?.text}</p>}
 					</div>
 				</div>
 			))}

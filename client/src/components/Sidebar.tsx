@@ -21,8 +21,6 @@ export default function Sidebar() {
 		dispatch(setSelectedUser(user));
 	}
 
-	useEffect(() => { console.log('onlineUsers',users, onlineUsers) }, [onlineUsers]);
-
 	const filteredUsers = showOnlineOnly ? users.filter((user) => onlineUsers.includes(Number(user.id))) : users;
 
 	if (isUsersLoading) return <SidebarSkeleton/>;
