@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  server:
+    build: ./server
+    container: server_c
+    ports:
+      - '5001:5001'
+    volumes:
+      - ./server:/.
+      - ./node_modules
+  client:
+    build: ./client
+    container: client_c
+    ports:
+      - '5173:5173'
+    stdin_open: true
+    tty: true 
